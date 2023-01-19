@@ -18,14 +18,14 @@ void free_edges(pnode vertex){
         return;
     }
    pedge curr = vertex -> edges;
+   pedge temp = NULL;
    while(curr!=NULL){
-        // pedge temp =curr->next;
-        // free(curr);
-        // curr=temp;
-        pedge temp = curr;
+        printf("w: %d \n", curr->weight);
+        temp = curr;
         curr=curr->next;
         free(temp);
    }
    vertex -> edges=NULL;
 }
+
 

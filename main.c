@@ -38,6 +38,8 @@ int main() {
 
     }
 
+    printGraph_cmd(graph);
+
     free_graph(&graph);
     return 0;
 }
