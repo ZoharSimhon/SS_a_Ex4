@@ -20,7 +20,6 @@ void free_edges(pnode vertex){
    pedge curr = vertex -> edges;
    pedge temp = NULL;
    while(curr!=NULL){
-        printf("w: %d \n", curr->weight);
         temp = curr;
         curr=curr->next;
         free(temp);
