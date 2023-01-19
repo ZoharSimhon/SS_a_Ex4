@@ -73,9 +73,12 @@ void insert_node_cmd(pnode *head){
     if(first_vertex != NULL){
         pedge curr_edge = first_vertex -> edges;
         while(curr_edge!=NULL){
-                pedge temp =curr_edge->next;
-                free(curr_edge);
-                curr_edge=temp;
+                // pedge temp =curr_edge->next;
+                // free(curr_edge);
+                // curr_edge=temp;
+                pedge temp = curr_edge;
+                curr_edge=curr_edge->next;
+                free(temp);
         }
         first_vertex->edges=NULL;
     }
@@ -133,9 +136,12 @@ void delete_node_cmd(pnode *head){
         while((curr_edge != NULL) && !found){
             //if the edge points to the node we deleted
             if (curr_edge-> endpoint -> node_num == num_vertex){
-                pedge temp =curr_edge->next;
-                free(curr_edge);
-                curr_edge=temp;
+                // pedg e temp =curr_edge->next;
+                // free(curr_edge);
+                // curr_edge=temp;
+                pedge temp = curr_edge;
+                curr_edge=curr_edge->next;
+                free(temp);
                 found =1;
             }
             else{

@@ -14,12 +14,18 @@ void add_edge(pnode vertex,int weight, pnode endpoint){
 }
 
 void free_edges(pnode vertex){
+    if(vertex == NULL){
+        return;
+    }
    pedge curr = vertex -> edges;
    while(curr!=NULL){
-        pedge temp =curr->next;
-        free(curr);
-        curr=temp;
-        curr = curr -> next;
+        // pedge temp =curr->next;
+        // free(curr);
+        // curr=temp;
+        pedge temp = curr;
+        curr=curr->next;
+        free(temp);
    }
+   vertex -> edges=NULL;
 }
 
