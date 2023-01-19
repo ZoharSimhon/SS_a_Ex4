@@ -21,13 +21,37 @@ pnode find_vertex (pnode head, int num_vertex){
    while((curr!=NULL) && (curr->node_num != num_vertex)){
       curr = curr->next;
    }
-   //if the num_vertex exis - return the vertext
-   if(curr->node_num == num_vertex){
-      return curr;
+   //if the num_vertex doesn't exis - return NULL
+   if(curr == NULL){
+      return NULL;
    }
-   //else- return null
-   return NULL;
 
+   //else- return the vertext
+   return curr;
+}
+
+void remove_node(pnode *head, int num_vertex){
+    //case - we need to delete the head
+    if((*head)->node_num == num_vertex){
+        *head = (*head)->next;
+        return;
+    }
+    
+   pnode curr = *head;
+   while((curr->next!=NULL) && (curr->next->node_num != num_vertex)){
+      curr = curr->next;
+   }
+
+   //if the vertex doesn't exist
+   if(curr->next==NULL){
+      return;
+   }
+
+   //in case we found:
+   pnode delete= curr->next;
+   curr->next= delete->next;
+   delete->next=NULL;
+    
 }
 
 void print_node(pnode vertex){

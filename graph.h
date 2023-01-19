@@ -22,11 +22,11 @@ typedef struct GRAPH_NODE_ {
 void build_graph_cmd(pnode *head);
 void insert_node_cmd(pnode *head);
 void delete_node_cmd(pnode *head);
-void printGraph_cmd(pnode head); //for self debug
 void deleteGraph_cmd(pnode* head);
 int shortsPath_cmd(pnode head,int source_num, int dest_num);
 void TSP_cmd(pnode head);
 pnode* create_vertexes_list (int size_vertex);
+void printGraph_cmd(pnode head); //for self debug
 
 pnode min_not_visited(pnode head);
 void set_start_value(pnode head);
@@ -41,5 +41,6 @@ void free_edges(pnode vertex);
 void free_graph(pnode *head);
 pnode find_vertex (pnode head, int num_vertex);
 void print_node(pnode vertex);
+void remove_node(pnode *head,  int num_vertex);
 
 #endif

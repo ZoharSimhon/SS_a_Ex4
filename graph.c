@@ -4,6 +4,11 @@
     
 pnode* create_vertexes_list (int size_vertex){
     pnode* graph_arr = (pnode*)malloc(size_vertex * sizeof(pnode));
+    //check if the malloc succeed
+    if(graph_arr == NULL){
+        return NULL;
+    }
+
     //Create the last vertex in the list
     graph_arr[size_vertex-1]= (pnode)malloc(sizeof(node));
     graph_arr[size_vertex-1] -> node_num = size_vertex-1;
@@ -17,7 +22,7 @@ pnode* create_vertexes_list (int size_vertex){
         graph_arr[index] -> edges = NULL;
         graph_arr[index] -> next =graph_arr[index+1];
     }
-    //Set the first vertex in the list
+
     return graph_arr;
 }
 
@@ -32,6 +37,7 @@ void build_graph_cmd(pnode *head){
         if(size_vertex == 0){
             return;
         }
+
         //Create a list of the vertexes
         pnode * graph_arr = create_vertexes_list(size_vertex);
         *head = graph_arr[0];
@@ -42,15 +48,15 @@ void build_graph_cmd(pnode *head){
         int weight;
         char n;
         for(size_t index=0; index<size_vertex; index++){
-            scanf("%c", &n);
-            scanf("%d", &first_vertex);
-            int result_scan= scanf("%d", &second_vertex);
-            while(result_scan != 0){
-                scanf("%d", &weight);
-                add_edge(graph_arr[first_vertex], weight, graph_arr[second_vertex]);
-                result_scan= scanf("%d", &second_vertex);
-            }
+        scanf("%c", &n);
+        scanf("%d", &first_vertex);
+        int result_scan= scanf("%d", &second_vertex);
+        while((!feof(stdin)) && (result_scan != 0)){
+            scanf("%d", &weight);
+            add_edge(graph_arr[first_vertex], weight, graph_arr[second_vertex]);
+            result_scan= scanf("%d", &second_vertex);
         }
+    }
     //free graph_arr
     free(graph_arr); 
 }
@@ -60,6 +66,7 @@ void insert_node_cmd(pnode *head){
     //get the number of the vertexes 
     int num_vertex = 0;
     scanf("%d", &num_vertex);
+
     //check if the vertex exist:
     pnode first_vertex = find_vertex(*head, num_vertex);
     //if the verte exis - delete all its edges
@@ -70,8 +77,9 @@ void insert_node_cmd(pnode *head){
                 free(curr_edge);
                 curr_edge=temp;
         }
+        first_vertex->edges=NULL;
     }
-    //else: create a new node which contains the num we have got
+    //else: create a new node which contains the num_vertex we have got
     else{
         first_vertex =(pnode)malloc(sizeof(node));
         first_vertex -> node_num = num_vertex;
@@ -83,27 +91,38 @@ void insert_node_cmd(pnode *head){
     //add all the edges
     int num_second_vertex; 
     int weight =0;
-    while((scanf("%d", &num_second_vertex)) != 0){
+    while(( (scanf("%d", &num_second_vertex))) != 0){
         scanf("%d", &weight);
-        pnode second_vertex = find_vertex(*head, num_vertex);
+        pnode second_vertex = find_vertex(*head, num_second_vertex);
         add_edge(first_vertex, weight, second_vertex);
     }
-    
+
 }
 
 void delete_node_cmd(pnode *head){
+    //cheak if the list is empty:
+    if(head == NULL){
+        return;
+    }
+
     int num_vertex;
     scanf("%d", &num_vertex);
+
+    //first -find the vertex
     pnode vertex = find_vertex(*head, num_vertex);
     //if the vertex doesn't exist - done
     if(vertex == NULL){
         return;
     }
-    //first- delte the node
+
+    //remove the node from the list:
+    remove_node(head, num_vertex);
+
+    //delete the node
     free_edges(vertex);
     free(vertex);
 
-    //delete all the edges which connected to that node.
+    //delete all the edges which connected to that node
     pnode curr_vertex = *head;
     pedge curr_edge;
     int found = 0;
@@ -139,7 +158,8 @@ int shortsPath_cmd(pnode head,int source_num, int dest_num){
     source->dist =0;
 
     // dijkstra's algorithm
-    pnode curr_vertex = min_not_visited(head);
+    //pnode curr_vertex = min_not_visited(head);
+    pnode curr_vertex = source;
     while (curr_vertex!= NULL)
     {
         curr_vertex->visited = 1;

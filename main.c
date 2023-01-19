@@ -7,6 +7,8 @@ int main() {
 
     pnode graph =NULL;
     char choise_function;
+    int source_num=0;
+    int dest_num=0;
 
     while (!feof(stdin)) {
         scanf("%c", &choise_function);
@@ -23,21 +25,16 @@ int main() {
                 break;
             case 'S':
                 //get the value of the vertexes
-                int source_num=0;
                 scanf("%d", &source_num);
-                int dest_num=0;
                 scanf("%d", &dest_num);
 
                 int shortest = shortsPath_cmd(graph,source_num,dest_num);
                 printf("Dijsktra shortest path: %d \n", shortest);
-
                 break;
             case 'T': 
                 TSP_cmd(graph);
                 break;
-            default:
-                break;
-        }
+            }
 
     }
 
